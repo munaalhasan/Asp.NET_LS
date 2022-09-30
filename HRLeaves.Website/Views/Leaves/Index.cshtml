@@ -1,0 +1,48 @@
+﻿@model HRLeaves.Website.Models.Leaves.LeavesRequests
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Leaves Requests</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.EmployeeName)*@
+                EmployeeName
+            </th>
+            <th>
+                Leave Type
+            </th>
+            <th>
+                Reason 
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.LeavesList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.ActionLink("Confirm", "Confirm", new { leaveReqID = item.LeavesID })
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

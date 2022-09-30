@@ -1,0 +1,104 @@
+﻿@model HRLeaves.Website.Models.Leaves.ConfirmLeave
+@*@{
+        ViewData["Title"] = "Confirm";
+    }*@
+
+<h1>Leave Request Details</h1>
+<form asp-action="Confirm" >
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LeaveReason)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LeaveReason)
+        </dd>
+        @if (Model.LeaveReason == "SickLeave")
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.filePath)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.filePath)
+            </dd>
+        }
+
+        @if (Model.OffType == "DaysOff")
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StartDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+        }
+
+        @if (Model.OffType == "HoursOff")
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Day)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Day)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.numberOfHours)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.numberOfHours)
+            </dd>
+        }
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.note)
+        </dd>
+    </dl>
+</div>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-outline-info">
+        @Html.RadioButtonFor(model => model.status, "Approved",
+             new { id = "IsApproved" }) Approved
+    </label>
+    <div class="col-1"></div>
+    <label class="btn btn-outline-danger">
+        @Html.RadioButtonFor(model => model.status, "Rejected",
+             new { id = "IsRejected" }) Rejected
+    </label>
+
+</div>
+
+    <input type="hidden" asp-for="LeavesID" />
+    <br />
+    <br />
+<div class="form-group">
+    <input type="submit" value="Confirm" class="btn btn-primary" />
+</div>
+</form>
+@*<div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

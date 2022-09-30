@@ -1,0 +1,143 @@
+﻿@model HRLeaves.Website.Models.Leaves.CreateEmployeeLeave
+@using HRLeaves.Services.Logic
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>CreateEmployeeLeave</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Types" class="control-label">why do you want to leave</label>
+                @Html.DropDownListFor(model => model.selectedType,
+                    new SelectList(Enum.GetValues(typeof(LeavesTypes))),
+                    "Select Type",
+                    new { @class = "form-control", id = "leavesTypes" })
+                <span asp-validation-for="Types" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="sFile">
+                <label asp-for="sickFile" class="control-label">Sick Report</label>
+                <input asp-for="sickFile" />
+                <span asp-validation-for="sickFile" class="text-danger"></span>
+            </div>
+            <div>
+                <a href="~/EmployeesFiles/0ab7cb19-c0d8-496f-b719-33700cd722c6_Cover letter.docx" target="_blank" class="button3">Open1</a>
+                <a href="" target="_blank" class="button3">Open2</a>
+
+            </div>
+
+            @*<div>
+                @foreach (var type in Enum.GetValues(typeof(OffTypes)))                
+                    {
+                        @Html.RadioButtonFor(model => model.OffTypeSelected, type);
+                    }
+             </div>*@
+            
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary">
+                    @Html.RadioButtonFor(model => model.OffTypeSelected ,"DaysOff",
+                     new { id = "DaysOff", @checked = true }) DaysOff
+                </label>
+
+                <label class="btn btn-dark">
+                    @Html.RadioButtonFor(model => model.OffTypeSelected, "HoursOff",
+                     new { id = "HoursOff" }) HoursOff
+                </label>
+            </div>
+            
+            <div id="DaysOffDiv">
+                <div class="form-group">
+                    <label>StartDate</label>
+                    <input name="StartDate" type="date" class="form-control" />
+                    <span></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">EndDate</label>
+                    <input name="EndDate" type="date" class="form-control" />
+                    <span></span>
+                </div>
+            </div>
+
+            <div id="HoursOffDiv">
+                <div class="form-group">
+                    <label>Day</label>
+                    <input name="Day" type="date" class="form-control" />
+                    <span></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">StartTime</label>
+                    @*@Html.TextBoxFor(model => model.StartTime, new { @class = "form-control", @id = "txtStartTime", @name = "StartTime" })*@
+                    <input name="StartTime" type="time" class="form-control" />
+                    <span></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="numberOfHours" class="control-label"></label>
+                    <input asp-for="numberOfHours" class="form-control" />
+                    <span asp-validation-for="numberOfHours" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="note" class="control-label"></label>
+                <textarea asp-for="note" class="form-control"></textarea>
+                <span asp-validation-for="note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit Request" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sFile").hide();
+            $("#leavesTypes").change(function () {
+                var value = document.getElementById("leavesTypes").value;
+                if (value == "SickLeave") {
+                    $("#sFile").show();
+                }
+                else {
+                    $("#sFile").hide();
+                }
+            });
+        })
+
+        $(document).ready(function () {
+            $("#HoursOffDiv").hide();
+            $("#HoursOff").change(function () {
+                    $("#DaysOffDiv").hide();
+                    $("#HoursOffDiv").show();
+                                
+            });
+        })
+
+        $(document).ready(function () {
+            $("#DaysOff").change(function () {
+            $("#HoursOffDiv").hide();
+            $("#DaysOffDiv").show();                
+            });
+        })
+        
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@model HRLeaves.Website.Models.Leaves.ConfirmLeave
+
+@{
+    ViewData["Title"] = "Confirm";
+}
+
+<h1>Confirm</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Confirm" class="form-inline">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Name" class="col-2"></label>
+                <input asp-for="Name" class="form-control mx-sm-3" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="LeaveReason" class="col-3"></label>
+                <input asp-for="LeaveReason" class="form-control mx-sm-3 " />
+                <span asp-validation-for="LeaveReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input type="text" asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input type="text" asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input type="text" asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="numberOfHours" class="control-label"></label>
+                <input asp-for="numberOfHours" class="form-control" />
+                <span asp-validation-for="numberOfHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="note" class="control-label"></label>
+                <input asp-for="note" class="form-control" />
+                <span asp-validation-for="note" class="text-danger"></span>
+            </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                @*<label class="btn btn-outline-info">
+                    <input type="radio" name="status" autocomplete="off"> Approved
+                </label>
+                <div class="col-1"></div>
+                <div class="col-sm-1 col-xs-1 col-md-1 col-lg-1"></div>
+                <label class="btn btn-outline-danger">
+                    <input type="radio" name="status" autocomplete="off"> Rejected
+                </label>*@
+
+                <label class="btn btn-outline-info">
+                @Html.RadioButtonFor(model => model.status, "Approved",
+                     new { id = "IsApproved" }) Approved
+                </label>
+                <div class="col-1"></div>
+                <label class="btn btn-outline-danger">
+                @Html.RadioButtonFor(model => model.status, "Rejected",
+                     new { id = "IsRejected" }) Rejected
+                </label>
+
+            </div>
+
+                <input type="hidden" asp-for="LeavesID" />
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+</form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
